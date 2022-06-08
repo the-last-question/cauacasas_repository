@@ -1,0 +1,29 @@
+#include "LiquidCrystal.h"
+#include <string.h>
+
+//inicializando com os pinos da interface.
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
+ String distancia;
+void setup() {
+  //Inicializando o LCD e informando o tamanho de 16 colunas e 2 linhas
+  //que é o tamanho do LCD JHD 162A usado neste projeto.
+  lcd.begin(16, 2); 
+  Serial.begin(9600);
+}
+ 
+void loop() { 
+  if(Serial.available() > 0){
+    distancia = Serial.readString();
+    Serial.flush();
+    lcd.clear();                          // Limpa o display
+  lcd.setCursor(0,0);                   // Posiciona o cursor
+  lcd.print("Distancia Medida:");        // Escreve no display "Distancia Medida"
+  lcd.setCursor(0,1);                   // Posiciona o cursor
+  lcd.print(distancia);                 // Escreve a distancia calculada em centímetros
+  lcd.setCursor(5,2);                   // Posiciona o cursor
+  lcd.print(" cm    ");    
+   
+    delay(1000);
+    
+  }
+}
